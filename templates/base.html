@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock  %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "style1.css" %}">
+    <link rel="stylesheet" href="{% static "style2.css" %}">
+</head>
+<body>
+    <nav>
+        <a href="#" class="nav-brand">TaskFlow</a>  
+        <div class="search-container">
+            <form action="" method="get">
+                <input type="text" name="q" placeholder="Search your tasks...">
+            </form>
+        </div>
+        <ul>
+            <li><a href="{% url "tasks:home" %}">Home</a></li>
+            <li><a href="#">Tasks</a></li>
+            <li><a href="{% url 'tasks:task_create' %}" class="btn btn-primary" style="color: white">Add Task</a></li>
+            <li>
+                <a href="#"><img src="{{user.profile.image.url}}" class="profile-img" alt="Profile"></a>
+            </li>
+        </ul>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <footer>
+        <p>&copy; 2026 TaskFlow Productivity Suite. Built for efficiency.</p>
+    </footer>
+</body>
+</html>

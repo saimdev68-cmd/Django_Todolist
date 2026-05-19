@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Task Dashboard
+{% endblock %}
+
+
+{% block content %}
+<div class="dashboard-wrapper">
+    
+    <div class="stats-grid">
+        <div class="stat-card"><span>Total</span><h2>{{stats.total_tasks}}</h2></div>
+        <div class="stat-card"><span>Complete</span><h2 style="color: var(--complete)">{{stats.complete_tasks}}</h2></div>
+        <div class="stat-card"><span>Pending</span><h2 style="color: var(--pending)">{{stats.pending_tasks}}</h2></div>
+        <div class="stat-card"><span>Processing</span><h2 style="color:var(--processing)">{{stats.processing_tasks}}</h2></div>
+        <div class="stat-card"><span>Cancel</span><h2 style="color: var(--cancel)">{{stats.cancel_tasks}}</h2></div>
+        <div class="stat-card"><span>Failed</span><h2 style="color: var(--danger)">{{stats.failed_tasks}}</h2></div>
+    </div>
+
+    <div class="section-title">
+        <h3>Recent Activity</h3>
+        <a href="#" class="btn">View All Tasks</a>
+    </div>
+
+    {% for task in tasks %}
+    <div class="task-card">
+        <div class="task-content">
+            <h3>{{task.title}}</h3>
+            <div class="task-badge-row">
+                <span class="badge">{{task.status}}</span>
+                <span>🕒 {{task.created_at|timesince}} ago</span>
+                <span>📅 {{task.due_date}}</span>
+            </div>
+        </div>
+        
+        <div class="action-group">
+            <a href="{% url "tasks:task_update" task.id %}" class="btn">Update</a>
+            <form action=""><button class="btn btn-primary">Start</button></form>
+            <form action=""><button class="btn">{% if task.is_pinned %}Unpin{% else %}Pin{% endif %}</button></form>
+            <form action=""><button class="btn btn-danger">Delete</button></form>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
